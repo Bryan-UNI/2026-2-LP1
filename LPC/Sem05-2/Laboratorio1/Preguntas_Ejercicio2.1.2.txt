@@ -1,0 +1,25 @@
+1. ¿Porqué sigue siendo 10 en main?
+Al llamar incrementar(n) esta función recibe una copia de n, la cual es modificada.
+Esto no afecta a la variable n dentro de nuestro main, por lo que no cambia su valor.
+
+2. ¿Cómo se resolvería sin usar punteros?
+Para se la función nos tendria que devolver la variable x modifica. Cambiamos la función void
+por un int y con un return devolvemos la variable modificada.
+Luego en el main le asignamos a la variable n su nuevo valor poniendo lo siguiente:
+        n = imcrementar(n);
+
+3. Reescribir incrementar para que retorne el valor modificado
+
+#include <stdio.h>
+int incrementar(int x) {
+    x = x + 1;
+    printf("Valor modificado: x = %d\n", x);
+    return x;
+}
+
+int main(void) {
+    int n = 10;
+    incrementar(n);
+
+    return 0;
+}

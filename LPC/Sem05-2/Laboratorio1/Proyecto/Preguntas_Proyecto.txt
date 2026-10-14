@@ -1,0 +1,27 @@
+1. ¿Qué contiene el .h y qué no debe contener?
+El archivo .h o header puede contener directivas de guarda, declaración de funciones, 
+definiciones de tipos de datos, macro, comentarios, constantes. Lo que no debe contener
+es definiciones de funciones(salvo casos específicos) o variables.
+
+2. ¿Por qué el .h no debe tener definiciones de funciones
+(salvo static inline en casos avanzados)?
+Si se declaran las funciones dentro del archivo.c, al momento de generar los archivos.o, cada
+uno de estos contendra la misma definición de las funciones. Aumentando así innecesariamente el
+tiempo de compilación. Cuando el enlazador intente juntar todos estos archivos.c la compilación
+fallará y nos dará un error de definición multiple.
+El caso del static inline se permite por ser funciones auxiliares pequeñas que buscan el maximo
+rendimiento sin romper el enlazador.
+
+
+3. ¿Para qué sirven las directivas
+(#ifndef/#define/#endif)? Probar incluir el mismo .h
+dos veces en main.c y ver qué pasa con y sin guardas.
+Las directivas de guardas sirven para evitar que el contenido de un archivo.h se duplique 
+al incluirlo varias veces en un mismo programa.
+Dependiendo de lo que tenga el .h nos dará un error por redefinir un mismo elemento.
+
+4. ¿Por qué main.c solo necesita incluir raiz_digital.h y
+no raiz_digital.c?
+Porque las funciones estan declaradas en el archivo.h (es un archivo de encabezado), y
+al generar nuestros archivos.o (que contiene las instrucciones de esas funciones en lenguaje
+de maquina) solo faltaria que el enlazador junte todo para que nuestro programa funcione.

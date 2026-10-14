@@ -1,0 +1,52 @@
+1. Predecir la salida de cada uno
+
+a. En este código al momento de llamar a la función incrementar local esta modifica la
+variable local creada en la misma (int contador = 0), "ocultando" así a la variable global
+contador, por lo que esas llamadas de la función serán todas 1. Mientras que en la llamada 
+final a la variable global este imprimirá 0, ya que en todo el codigo no se ha modificado.
+
+b. A diferencia del primer código, la función incrementar_global() no declara una variable
+local que oculte el nombre de la variable global, por lo tanto la operación contador++ actuará
+directamente sobre la variable global contador. Como el estado de una varialbe global se conserva
+durante toda la ejecución del programa, las tres llamadas consecutivas acumulan los incremento 
+modificando la variable original y dándonos como salida esperada:
+global contador = 3
+
+
+2. Compilar y verificar. ¿Sorpresa?.
+
+Salió lo que esperaba.
+
+
+3. 3. Refactorizar para eliminar la variable global: pasar el contador por parámetro y retornar 
+el nuevo valor:
+
+int incrementar(int contador) { return contador + 1;
+    }
+
+#include<stdio.h>
+int incrementar(int contador){
+    return contador + 1;
+}
+int main(){
+    int contador = 0;
+    contador = incrementar(contador);
+    contador = incrementar(contador);
+    contador = incrementar(contador);
+    printf("contador = %d\n", contador);
+
+    return 0;
+}
+
+
+4. Discusión: ¿Por qué las variables globales son una mala
+práctica en Ingeniería de Software? Mencionar al menos
+tres razones (acoplamiento, dificultad de testeo,
+condiciones de carrera en concurrencia).
+
+1. Mucha dependencia al momento de hacer un cambio en la variable global.
+Se tendrian que revisar todas las funciones que trabajan con esta variable global, por lo que
+es ineficiente en ese sentido.
+2. Imposibilitan el aislar las funciones al momento de pruebas de testeo.
+3. Puede ocurrir momentos en la que dos o más hilos intentan modificar la misma varible, lo
+que generaría errores indeterminados y fallos en el correcto funcionamiento del programa.
